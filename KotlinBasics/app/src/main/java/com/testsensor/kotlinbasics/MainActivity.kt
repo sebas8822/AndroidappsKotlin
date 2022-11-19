@@ -2,7 +2,6 @@ package com.testsensor.kotlinbasics
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import java.security.Principal
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun classes() {
-        TODO("Not yet implemented")
+       val Sebas = Programmer("Sebas",32, arrayOf(Programmer.Language.JavaScript,Programmer.Language.Java, Programmer.Language.Kotlin))
+        println(Sebas.name)
+
+        Sebas.code()
+
+        // to access to the enum class (predifine values) -- notice that the parameter programemr (last one ), can be null or not check up one
+        // Programmer parameter shows in class that can be the same class can be infer ()
+        val Karen = Programmer("Karen", 16, arrayOf(Programmer.Language.JavaScript,Programmer.Language.Java), arrayOf(Sebas))
+        //to access to the valiables
+        println("${Karen.friends?.first()?.name} is ${Karen.name}'s friend")
+
+
+
+
     }
 
 
