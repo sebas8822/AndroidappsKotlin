@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         //loops()
         //nullsafety()
         //functions()
-        classes()
+        //classes()
 
     }
 
