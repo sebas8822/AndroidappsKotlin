@@ -2,6 +2,16 @@ package com.testsensor.kotlinadvance
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import java.util.*
+import kotlin.collections.ArrayList
+// Tutorial youtube.com/watch?v=AA3N_yQQtHY&t=3165s
+
+//Typealias that represents datatypes
+typealias MyMapList = MutableMap<Int, ArrayList<String>>
+// Typealias to represent fuctions
+typealias Myfun = (Int, String, MyMapList) -> Boolean
+//TypeAlias to represent nestedclass
+typealias MyNestedClass = MyNestedAndInnerClass.MyNestedClass
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,13 +29,123 @@ class MainActivity : AppCompatActivity() {
         //Visibility Modifiers
         //visibilityModifiers()
         //Data Classes
-        dataClass()
+        //ataClass()
+        //Typealias
+        //typeAlias()
+        //Destructuring Declaration
+        //destructuringDeclaration()
+        //Extensions
+        //extensions()
 
 
     }
 }
+//Leccion 9: Extensions -- Reusable code witout use heritage - the funtions that are extendet can be used as base on the new class
+// Extention properties that can be used to add properties to the extesion  base
 
-//Lesson 4: Data Class share similar characteristics to normal classes the diference between them is that data class already has in-build functions that
+private fun extensions(){
+
+
+    //extending functions
+    val myDate = Date()
+    println(myDate.customeFormat())
+    println(myDate.formatSize)
+
+    val myDateNullable: Date? = null
+    println(myDateNullable.customeFormat())
+    println(myDateNullable.formatSize)
+
+
+
+
+}
+
+
+
+
+//Leccion 8: Destructuring Declaration -- For efficiency
+// structures in a unic element - Clean and Fast
+
+private fun destructuringDeclaration() {
+
+    //Applciaiton to dataclasses
+    // val Sebas = Worker("Sebas", 34, "Programmer")
+    // The concept destructuring mean as we see the variable Sebas with type values worker  can be separate in constants
+    val (Name,Age,Work) = Worker("Sebas", 34, "Programmer")
+    println("$Name, $Age, $Work")
+    //this is another way to do it
+    val Sebas = Worker("Sebas", 34, "Programmer")
+    println(Sebas.component1())
+
+    //can be applicable to fuctions
+    val (NameWorker,AgeWorker,WorkWorker) = myWorker()
+    println("$NameWorker, $AgeWorker, $WorkWorker")
+
+    // It is also applicable to maps
+    val myMap = mapOf(1 to "Sebas", 2 to "Ana", 3 to "Sara")
+    //normal
+    for (element  in myMap){
+        println("Key: ${element.key}: value ${element.value}")
+    }
+    //another way
+    for (element  in myMap){
+        println("Key: ${element.component1()}: value ${element.component2()}")
+    }
+    //total destructuration
+    for ((Key,Value) in myMap){
+        println("$Key:$Value ")
+    }
+
+    //variables underscore - this way just allow to acces to the variables that are not underscore
+    //this make sure that you are accesing without acces to the unnecessary one
+    val (n,_,w) = Worker("Sebas", 34, "Programmer")
+    println("$n, $w")
+
+
+}
+
+private fun myWorker(): Worker{
+    return Worker("Sebas", 34, "Programmer")
+}
+
+
+//Leccion 7: Type Aliases - - it is amethod to call long types in a short way
+// this improve functionality readibility and behaviour help to about to much repetion too
+
+// This is a normal way
+
+private var myMap: MutableMap<Int, ArrayList<String>> = mutableMapOf()
+
+private var myMap2: MyMapList = mutableMapOf()
+
+private fun typeAlias() {
+
+    //tipical way to manage this
+    //varatiable creation
+    var myNewMap: MutableMap<Int, ArrayList<String>> = mutableMapOf()
+    // values assignation
+    myNewMap[1] = arrayListOf("Sebas", "Ramirez")
+    myNewMap[2] = arrayListOf("Karen", "Joaqui")
+
+    myMap =
+        myNewMap // I can assign the same values to my other variable because are constructed the same
+
+    // Now using typealias + this is declare as global variable usig typealias and defining the variable and type check up
+    //varatiable creation
+    var myNewMap2: MyMapList = mutableMapOf()
+    // values assignation
+    myNewMap2[1] = arrayListOf("Sebas", "Ramirez")
+    myNewMap2[2] = arrayListOf("Karen", "Joaqui")
+
+    myMap2 =
+        myNewMap2 // I can assign the same values to my other variable because are constructed the same
+
+    println(myMap2.toString())
+
+}
+
+
+//Lesson 6: Data Class share similar characteristics to normal classes the diference between them is that data class already has in-build functions that
 //allows to work with data and the efficiency is better than normal class
 private fun dataClass() {
     val sebas = Worker("Sebas", 16, "Programmer")
@@ -49,7 +169,7 @@ private fun dataClass() {
     val sebas2 = sebas.copy()
     println(sebas2.toString())
     //**Copy-> we can also copy and change properties
-    val sebas3 = sebas.copy(age=35)
+    val sebas3 = sebas.copy(age = 35)
     println(sebas3.toString())
 
     //componentN
@@ -60,7 +180,7 @@ private fun dataClass() {
 }
 
 
-//Lesson 4: The classes, objects, interfaces, constructors, functions, properties, accessors(Get/set)
+//Lesson 5: The classes, objects, interfaces, constructors, functions, properties, accessors(Get/set)
 //can have visibility modifiers
 // keywords "Private", "protected", "internal", "public"
 
