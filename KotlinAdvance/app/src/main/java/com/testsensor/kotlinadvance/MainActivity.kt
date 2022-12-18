@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
+
 // Tutorial youtube.com/watch?v=AA3N_yQQtHY&t=3165s
 
 //Typealias that represents datatypes
@@ -36,14 +38,77 @@ class MainActivity : AppCompatActivity() {
         //destructuringDeclaration()
         //Extensions
         //extensions()
+        //Lambdas
+        lamdas()
 
 
     }
 }
-//Leccion 9: Extensions -- Reusable code witout use heritage - the funtions that are extendet can be used as base on the new class
-// Extention properties that can be used to add properties to the extesion  base
 
-private fun extensions(){
+//Leccion 10: Lambdas it is was to specialize the functionality of functions
+// functions can be stored in a variable or in a structure
+//lambdas help to us to define functions that can work with other functions
+
+private fun lamdas() {
+    val myIntList = arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    val myfilterIntList = myIntList.filter {
+        it > 5
+    }
+    println(myfilterIntList)
+
+
+    // but we can make changes to that fuctiond
+
+    val myfilterIntList2 = myIntList.filter { myInt ->
+
+        println(myInt)
+        if (myInt == 1) {
+            return@filter true
+        }
+
+        myInt > 5
+    }
+    println(myfilterIntList2)
+
+
+    //Funtion tu sum nums
+
+    val mySumFun = fun(x: Int, y: Int): Int = x + y
+    val myMulFun = fun(x: Int, y: Int): Int = x * y
+
+
+
+    myAsyncFun("Sebas"){
+        println(it)
+
+    }
+    println(myOperateFun(5, 10, mySumFun))
+    println(myOperateFun(5, 10, myMulFun))
+    println(myOperateFun(5, 10) { x, y -> x - y })
+
+}
+
+// now th function lanbda  // the function receive 2 INT and one Fuction with its parameters
+private fun myOperateFun(x: Int, y: Int, myFun: (Int, Int) -> Int): Int {
+    return myFun(x, y)
+}
+
+private fun myAsyncFun(name: String, hello: (String) -> Unit) {
+    val myNewString = "Hello $name"
+    thread {
+        Thread.sleep(5000)
+        hello(myNewString)
+    }
+
+
+
+}
+
+
+//Leccion 9: Extensions -- Reusable code without use heritage - the functions that are extended can be used as base on the new class
+// Extention properties that can be used to add properties to the extension  base
+
+private fun extensions() {
 
 
     //extending functions
@@ -56,11 +121,7 @@ private fun extensions(){
     println(myDateNullable.formatSize)
 
 
-
-
 }
-
-
 
 
 //Leccion 8: Destructuring Declaration -- For efficiency
@@ -71,40 +132,40 @@ private fun destructuringDeclaration() {
     //Applciaiton to dataclasses
     // val Sebas = Worker("Sebas", 34, "Programmer")
     // The concept destructuring mean as we see the variable Sebas with type values worker  can be separate in constants
-    val (Name,Age,Work) = Worker("Sebas", 34, "Programmer")
+    val (Name, Age, Work) = Worker("Sebas", 34, "Programmer")
     println("$Name, $Age, $Work")
     //this is another way to do it
     val Sebas = Worker("Sebas", 34, "Programmer")
     println(Sebas.component1())
 
     //can be applicable to fuctions
-    val (NameWorker,AgeWorker,WorkWorker) = myWorker()
+    val (NameWorker, AgeWorker, WorkWorker) = myWorker()
     println("$NameWorker, $AgeWorker, $WorkWorker")
 
     // It is also applicable to maps
     val myMap = mapOf(1 to "Sebas", 2 to "Ana", 3 to "Sara")
     //normal
-    for (element  in myMap){
+    for (element in myMap) {
         println("Key: ${element.key}: value ${element.value}")
     }
     //another way
-    for (element  in myMap){
+    for (element in myMap) {
         println("Key: ${element.component1()}: value ${element.component2()}")
     }
     //total destructuration
-    for ((Key,Value) in myMap){
+    for ((Key, Value) in myMap) {
         println("$Key:$Value ")
     }
 
     //variables underscore - this way just allow to acces to the variables that are not underscore
     //this make sure that you are accesing without acces to the unnecessary one
-    val (n,_,w) = Worker("Sebas", 34, "Programmer")
+    val (n, _, w) = Worker("Sebas", 34, "Programmer")
     println("$n, $w")
 
 
 }
 
-private fun myWorker(): Worker{
+private fun myWorker(): Worker {
     return Worker("Sebas", 34, "Programmer")
 }
 
@@ -304,4 +365,6 @@ private fun enumClasses() {
 
 
 }
+
+
 
